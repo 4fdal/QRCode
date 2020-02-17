@@ -24,8 +24,16 @@
                     <div class="form-group">
                         <label for="input"> WAKTU MULAI ACARA </label>
                         <input type="time" class="form-control form-control-sm" placeholder="Waktu Mulai"
-                            onkeyup="handleSetValue('waktu', this.value)" />
+                            onkeyup="handleSetValue('waktu', this.value)" 
+                            onchange="handleSetValue('waktu', this.value)"/>
                         <sub class="text-info"> 07:00 AM atau 16:00 PM </sub>
+                    </div>
+                    <div class="form-group">
+                        <label for="input"> TANGGAL MULAI ACARA </label>
+                        <input type="date" for class="form-control form-control-sm" placeholder="Waktu Mulai"
+                            onkeyup="handleSetValue('tanggal', this.value)" 
+                            onchange="handleSetValue('tanggal', this.value)"/>
+                        <sub class="text-info"> Format tanggal jika tanggal tidak keluar YYYY/BB/HH  </sub>
                     </div>
                     <div class="form-group">
                         <label for="input"> NAMA ACARA </label>
@@ -38,7 +46,8 @@
                     <div class="container">
                         <br>
                         <h5> NAMA ACARA <strong id='view-acara'> </strong> </h5>
-                        <h5> WAKTU CARA <strong id='view-waktu'> </strong> </h5>
+                        <h5> WAKTU ACARA <strong id='view-waktu'> </strong> </h5>
+                        <h5> TANGGAL ACARA <strong id='view-tanggal'> </strong> </h5>
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -56,16 +65,24 @@
     let data = {
         acara : '',
         waktu : '',
+        tanggal : '',
+        waktu_tanggal_acara : '', 
     } 
     createQR('qrcode')
 
     function handlerSetView(id, value){
         document.getElementById(id).innerHTML = value 
+        setWaktuTanggalAcara()
+    }
+
+    function setWaktuTanggalAcara(){
+        data.waktu_tanggal_acara = data.tanggal + " " + data.waktu
     }
 
     function handlerSaveAcara(){
         handlerSetView('view-acara', data.acara)
         handlerSetView('view-waktu', data.waktu)
+        handlerSetView('view-tanggal', data.tanggal)
     }
 
     function handleSetValue(key, value){
